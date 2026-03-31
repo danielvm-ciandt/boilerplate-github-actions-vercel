@@ -42,7 +42,7 @@ jobs:
       - name: Build for Production
         run: vercel build --prod --token=$VERCEL_TOKEN
 
-    - name: Deploy to Production
+      - name: Deploy to Production
         id: deploy
         run: |
           url=$(vercel deploy --prebuilt --prod --token=$VERCEL_TOKEN)

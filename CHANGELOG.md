@@ -1,3 +1,10 @@
+# [0.3.0](https://github.com/danielvm-ciandt/boilerplate-github-actions-vercel/compare/v0.2.0...v0.3.0) (2026-03-31)
+
+
+### Features
+
+* add production deployment workflow ([#3](https://github.com/danielvm-ciandt/boilerplate-github-actions-vercel/issues/3)) ([b2df6a8](https://github.com/danielvm-ciandt/boilerplate-github-actions-vercel/commit/b2df6a8c0f51d53ffe65d27cd09378cf1b9101dc))
+
 # [0.2.0](https://github.com/danielvm-ciandt/boilerplate-github-actions-vercel/compare/v0.1.0...v0.2.0) (2026-03-31)
 
 

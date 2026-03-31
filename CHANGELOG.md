@@ -1,3 +1,10 @@
+# [0.2.0](https://github.com/danielvm-ciandt/boilerplate-github-actions-vercel/compare/v0.1.0...v0.2.0) (2026-03-31)
+
+
+### Features
+
+* add staging deployment workflow ([#2](https://github.com/danielvm-ciandt/boilerplate-github-actions-vercel/issues/2)) ([e38cd2b](https://github.com/danielvm-ciandt/boilerplate-github-actions-vercel/commit/e38cd2b9f72dfb226df5f863be5c77454769f1c4))
+
 # [0.1.0](https://github.com/danielvm-ciandt/boilerplate-github-actions-vercel/compare/v0.0.0...v0.1.0) (2026-03-31)
 
 

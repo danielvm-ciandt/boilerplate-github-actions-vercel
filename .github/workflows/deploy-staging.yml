@@ -1,0 +1,62 @@
+name: Deploy — Staging
+
+on:
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+  pull-requests: write
+
+concurrency:
+  group: deploy-staging-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+env:
+  VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
+  VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
+  VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+
+jobs:
+  deploy-staging:
+    name: Deploy to Staging (Preview)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node 22 LTS
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install Vercel CLI
+        run: npm i -g vercel
+
+      - name: Pull Vercel environment
+        run: vercel pull --yes --environment=preview --token=$VERCEL_TOKEN
+
+      - name: Build
+        run: vercel build --token=$VERCEL_TOKEN
+        env:
+          BUILD_SHA: rc{{ github.sha }}
+
+      - name: Deploy to Staging (Preview)
+        id: deploy
+        run: |
+          url=$(vercel deploy --prebuilt --token=$VERCEL_TOKEN)
+          echo "url=$url" >> "$GITHUB_OUTPUT"
+
+      - name: Comment PR with preview URL
+        uses: marocchino/sticky-pull-request-comment@v2
+        with:
+          header: staging-preview
+          message: |
+            ### Staging Preview
+            **URL:** ${{ steps.deploy.outputs.url }}
+            **Commit:** `${{ github.sha }}`
+
+      - name: Summary
+        run: echo "### Staging deployed → ${{ steps.deploy.outputs.url }}" >> "$GITHUB_STEP_SUMMARY"
